@@ -27,19 +27,18 @@ def create_dashboard(server):
     dash_app.index_string = html_layout
 
     # Create Layout
+
     dash_app.layout = html.Div(
         children=[dcc.Graph(
             id='histogram-graph',
             figure={
                 'data': [{
-                    'x': df['complaint_type'],
-                    'text': df['complaint_type'],
-                    'customdata': df['key'],
-                    'name': '311 Calls by region.',
-                    'type': 'histogram'
+                    'x': df['timestamp'],
+                    'y': df['open'],
+                    'type': 'line'
                 }],
                 'layout': {
-                    'title': 'NYC 311 Calls category.',
+                    'title': 'ibm 5 min chart',
                     'height': 500,
                     'padding': 150
                 }
@@ -57,9 +56,6 @@ def create_data_table(df):
         id='database-table',
         columns=[{"name": i, "id": i} for i in df.columns],
         data=df.to_dict('records'),
-        sort_action="native",
-        sort_mode='native',
         page_size=300
     )
     return table
-
